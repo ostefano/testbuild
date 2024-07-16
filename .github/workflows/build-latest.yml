@@ -19,7 +19,8 @@ jobs:
         uses: docker/setup-buildx-action@v3
 
       - name: Build and push
-        uses: docker/build-push-action@v6
+        uses: docker/bake-action@v4
         with:
           push: false
-          tags: ostefano/testbuild:latest
+          provenance: false
+          files: docker-bake.hcl
