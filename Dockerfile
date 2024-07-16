@@ -23,16 +23,24 @@ FROM "${DOCKER_HUB_PROXY}ubuntu:24.04" as composer-build
 
     WORKDIR /tmp
     
+    # install composer but extract it as well so we can patch it
     COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
     RUN cp /usr/bin/composer /composer.phar
     RUN mkdir /out/
     RUN php -r '$phar = new Phar("/composer.phar"); $phar->extractTo("/out/");'
 
+    # patch 'CurlDownloader.php' so debug information is printed when downloading resources
     COPY files/CurlDownloader.php /out/src/Composer/Util/Http/CurlDownloader.php
+
+    # load a standard set of dependencies that we want composore to install
     COPY files/composer.json /tmp/composer.json
 
+    # configure
     RUN php /out/bin/composer config --no-interaction allow-plugins.composer/installers true
     RUN php /out/bin/composer config --no-interaction secure-http false
+
+    # installl
     RUN php /out/bin/composer install -vvvvv --ignore-platform-reqs 
 
+    # just an entrypoint in case the build succeeds
     ENTRYPOINT ["tail", "-f", "/dev/null"]
