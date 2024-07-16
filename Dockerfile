@@ -16,6 +16,11 @@ FROM "${DOCKER_HUB_PROXY}ubuntu:24.04" as composer-build
         unzip
 
     WORKDIR /tmp
+
+    # run a simple test trying to reproduce (unsuccessfully) the issue triggered below
+    COPY files/test.php /tmp/test.php
+    RUN php /tmp/test.php
+    RUN cat /tmp/body.txt
     
     # install composer but extract it as well so we can patch it
     COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
