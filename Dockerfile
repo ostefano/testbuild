@@ -11,12 +11,6 @@ FROM "${DOCKER_HUB_PROXY}ubuntu:24.04" as composer-build
         php8.3-apcu \
         php8.3-curl \
         php8.3-xml \
-        php8.3-intl \
-        php8.3-bcmath \
-        php8.3-mbstring \
-        php8.3-mysql \
-        php8.3-redis \
-        php8.3-gd \
         php8.3-fpm \
         php8.3-zip \
         unzip
