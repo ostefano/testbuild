@@ -71,8 +71,8 @@ class CurlDownloader
 		'ssl' => [
 			'cafile' => CURLOPT_CAINFO,
 			'capath' => CURLOPT_CAPATH,
-			# 'verify_peer' => CURLOPT_SSL_VERIFYPEER,
-			# 'verify_peer_name' => CURLOPT_SSL_VERIFYHOST,
+			'verify_peer' => CURLOPT_SSL_VERIFYPEER,
+			'verify_peer_name' => CURLOPT_SSL_VERIFYHOST,
 			'local_cert' => CURLOPT_SSLCERT,
 			'local_pk' => CURLOPT_SSLKEY,
 			'passphrase' => CURLOPT_SSLKEYPASSWD,
@@ -200,6 +200,8 @@ class CurlDownloader
 		curl_setopt($curlHandle, CURLOPT_FILE, $bodyHandle);
 		curl_setopt($curlHandle, CURLOPT_ENCODING, ""); 
 		curl_setopt($curlHandle, CURLOPT_PROTOCOLS, CURLPROTO_HTTP | CURLPROTO_HTTPS);
+		curl_setopt($curlHandle, CURLOPT_SSL_VERIFYHOST, 0);
+		curl_setopt($curlHandle, CURLOPT_SSL_VERIFYPEER, 0);
 
 		if ($attributes['ipResolve'] === 4) {
 			curl_setopt($curlHandle, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
