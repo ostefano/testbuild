@@ -7,6 +7,7 @@ FROM "${DOCKER_HUB_PROXY}ubuntu:24.04" as composer-build
 
     RUN apt-get update; apt-get install -y --no-install-recommends \
         ca-certificates \
+        curl \
         php8.3 \
         php8.3-apcu \
         php8.3-curl \
