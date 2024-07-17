@@ -12,7 +12,7 @@ FROM "${DOCKER_HUB_PROXY}ubuntu:24.04" as composer-build
     # RUN curl -vvv --trace-config ssl,tcp https://dotnet.microsoft.com/
     # RUN curl -vvv --trace-config ssl,tcp https://api.github.com/repos/Bacon/BaconQrCode# /zipball/8674e51bb65af933a5ffaf1c308a660387c35c22
 
-    RUN apt-get install -y --no-install-recommends \
+    RUN apt-get update; apt-get install -y --no-install-recommends \
         ca-certificates \ 
         php8.3 \
         php8.3-apcu \
