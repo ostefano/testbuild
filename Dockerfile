@@ -18,7 +18,7 @@ FROM "${DOCKER_HUB_PROXY}ubuntu:24.04" as composer-build
 
     WORKDIR /tmp
 
-    RUN curl -vvv --trace-config ssl,tcp https://api.github.com/
+    # RUN curl -vvv --trace-config ssl,tcp https://api.github.com/
     # RUN curl -vvv --trace-config ssl,tcp https://dotnet.microsoft.com/
 
     # run a simple test trying to reproduce (unsuccessfully) the issue triggered below
