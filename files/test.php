@@ -31,6 +31,7 @@ if (function_exists('curl_share_init')) {
     curl_setopt($ch, CURLOPT_SHARE, $sh);
 }
 
+var_dump(curl_getinfo($ch));
 curl_exec($ch);
 $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 echo 'HTTP code: ' . $httpcode;

@@ -19,3 +19,5 @@ The error:
 #21 43.69 * Closing connection
 #21 43.70     Failed to download symfony/polyfill-intl-normalizer from dist: curl error 28 while downloading https://api.github.com/repos/symfony/polyfill-intl-normalizer/zipball/a95281b0be0d9ab48050ebd988b967875cdb9fdb: SSL connection timeout
 ```
+
+If you want to build it, just run `BUILDKIT_PROGRESS=plain docker build -t testbuild:latest .`
