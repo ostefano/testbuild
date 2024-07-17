@@ -73,6 +73,7 @@ class CurlDownloader
 		 	'capath' => CURLOPT_CAPATH,
 		 	'verify_peer' => CURLOPT_SSL_VERIFYPEER,
 		 	'verify_peer_name' => CURLOPT_SSL_VERIFYHOST,
+		 	'verify_peer_status' => CURLOPT_SSL_VERIFYSTATUS,
 		 	'local_cert' => CURLOPT_SSLCERT,
 		 	'local_pk' => CURLOPT_SSLKEY,
 		 	'passphrase' => CURLOPT_SSLKEYPASSWD,
@@ -233,6 +234,10 @@ class CurlDownloader
 		$options['http']['header'] = $this->authHelper->addAuthenticationHeader($options['http']['header'], $origin, $url);
 		$options = StreamContextFactory::initOptions($url, $options, true);
 
+		$options['ssl']['verify_peer'] = false;
+		$options['ssl']['verify_peer_name'] = false;
+		$options['ssl']['verify_peer_status'] = false;
+
 		foreach (self::$options as $type => $curlOptions) {
 			foreach ($curlOptions as $name => $curlOption) {
 				if (isset($options[$type][$name])) {
@@ -244,9 +249,9 @@ class CurlDownloader
 				}
 			}
 		}
-		curl_setopt($curlHandle, CURLOPT_SSL_VERIFYHOST, 0);
-		curl_setopt($curlHandle, CURLOPT_SSL_VERIFYPEER, 0);
-		curl_setopt($curlHandle, CURLOPT_SSL_VERIFYSTATUS, 0);
+		# curl_setopt($curlHandle, CURLOPT_SSL_VERIFYHOST, 0);
+		# curl_setopt($curlHandle, CURLOPT_SSL_VERIFYPEER, 0);
+		# curl_setopt($curlHandle, CURLOPT_SSL_VERIFYSTATUS, 0);
 
 		$proxy = ProxyManager::getInstance()->getProxyForRequest($url);
 		curl_setopt_array($curlHandle, $proxy->getCurlOptions($options['ssl'] ?? []));
