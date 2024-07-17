@@ -249,9 +249,6 @@ class CurlDownloader
 				}
 			}
 		}
-		# curl_setopt($curlHandle, CURLOPT_SSL_VERIFYHOST, 0);
-		# curl_setopt($curlHandle, CURLOPT_SSL_VERIFYPEER, 0);
-		# curl_setopt($curlHandle, CURLOPT_SSL_VERIFYSTATUS, 0);
 
 		$proxy = ProxyManager::getInstance()->getProxyForRequest($url);
 		curl_setopt_array($curlHandle, $proxy->getCurlOptions($options['ssl'] ?? []));
