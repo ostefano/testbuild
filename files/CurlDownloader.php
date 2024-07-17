@@ -200,8 +200,8 @@ class CurlDownloader
 		curl_setopt($curlHandle, CURLOPT_FILE, $bodyHandle);
 		curl_setopt($curlHandle, CURLOPT_ENCODING, ""); 
 		curl_setopt($curlHandle, CURLOPT_PROTOCOLS, CURLPROTO_HTTP | CURLPROTO_HTTPS);
-		#curl_setopt($curlHandle, CURLOPT_SSL_VERIFYHOST, 0);
-		#curl_setopt($curlHandle, CURLOPT_SSL_VERIFYPEER, 0);
+		curl_setopt($curlHandle, CURLOPT_SSL_VERIFYHOST, 0);
+		curl_setopt($curlHandle, CURLOPT_SSL_VERIFYPEER, 0);
 		curl_setopt($curlHandle, CURLOPT_SSL_VERIFYSTATUS, 0);
 
 		if ($attributes['ipResolve'] === 4) {
