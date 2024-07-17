@@ -3,8 +3,7 @@ ARG DOCKER_HUB_PROXY=""
 FROM "${DOCKER_HUB_PROXY}ubuntu:24.04" as composer-build
     ENV DEBIAN_FRONTEND noninteractive
     ENV COMPOSER_ALLOW_SUPERUSER 1
-    ENV COMPOSER_IPRESOLVE 4
-
+    # ENV COMPOSER_IPRESOLVE 4
     # RUN apt-get update; apt-get install -y --no-install-recommends \
     #     ca-certificates \
     #     curl
@@ -18,7 +17,6 @@ FROM "${DOCKER_HUB_PROXY}ubuntu:24.04" as composer-build
         php8.3-apcu \
         php8.3-curl \
         php8.3-xml \
-        php8.3-fpm \
         php8.3-zip \
         unzip
 
