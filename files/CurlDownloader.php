@@ -194,11 +194,11 @@ class CurlDownloader
 		curl_setopt($curlHandle, CURLOPT_STDERR, fopen('php://stdout', 'w'));
 		curl_setopt($curlHandle, CURLOPT_URL, $url);
 		curl_setopt($curlHandle, CURLOPT_FOLLOWLOCATION, false);
-		curl_setopt($curlHandle, CURLOPT_CONNECTTIMEOUT, 10);
-		curl_setopt($curlHandle, CURLOPT_TIMEOUT, max((int) ini_get("default_socket_timeout"), 300));
+		curl_setopt($curlHandle, CURLOPT_CONNECTTIMEOUT, 10000);
+		curl_setopt($curlHandle, CURLOPT_TIMEOUT, 10000);
 		curl_setopt($curlHandle, CURLOPT_WRITEHEADER, $headerHandle);
 		curl_setopt($curlHandle, CURLOPT_FILE, $bodyHandle);
-		curl_setopt($curlHandle, CURLOPT_ENCODING, ""); 
+		# curl_setopt($curlHandle, CURLOPT_ENCODING, ""); 
 		curl_setopt($curlHandle, CURLOPT_PROTOCOLS, CURLPROTO_HTTP | CURLPROTO_HTTPS);
 
 		if ($attributes['ipResolve'] === 4) {
@@ -215,8 +215,8 @@ class CurlDownloader
 			$options['http']['header'] = [];
 		}
 
-		$options['http']['header'] = array_diff($options['http']['header'], ['Connection: close']);
-		$options['http']['header'][] = 'Connection: keep-alive';
+		#$options['http']['header'] = array_diff($options['http']['header'], ['Connection: close']);
+		#$options['http']['header'][] = 'Connection: keep-alive';
 
 		$version = curl_version();
 		$features = $version['features'];
@@ -245,8 +245,8 @@ class CurlDownloader
 			}
 		}
 
-		$proxy = ProxyManager::getInstance()->getProxyForRequest($url);
-		curl_setopt_array($curlHandle, $proxy->getCurlOptions($options['ssl'] ?? []));
+		#$proxy = ProxyManager::getInstance()->getProxyForRequest($url);
+		#curl_setopt_array($curlHandle, $proxy->getCurlOptions($options['ssl'] ?? []));
 
 		$progress = array_diff_key(curl_getinfo($curlHandle), self::$timeInfo);
 
@@ -265,11 +265,11 @@ class CurlDownloader
 			'primaryIp' => '',
 		];
 
-		$usingProxy = $proxy->getStatus(' using proxy (%s)');
-		$ifModified = false !== stripos(implode(',', $options['http']['header']), 'if-modified-since:') ? ' if modified' : '';
-		if ($attributes['redirects'] === 0 && $attributes['retries'] === 0) {
-			$this->io->writeError('Downloading ' . Url::sanitize($url) . $usingProxy . $ifModified, true, IOInterface::DEBUG);
-		}
+		#$usingProxy = $proxy->getStatus(' using proxy (%s)');
+		#$ifModified = false !== stripos(implode(',', $options['http']['header']), 'if-modified-since:') ? ' if modified' : '';
+		#if ($attributes['redirects'] === 0 && $attributes['retries'] === 0) {
+		#		$this->io->writeError('Downloading ' . Url::sanitize($url) . $usingProxy . $ifModified, true, IOInterface::DEBUG);
+		#}
 
 		$this->checkCurlResult(curl_multi_add_handle($this->multiHandle, $curlHandle));
 
