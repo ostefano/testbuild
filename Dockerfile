@@ -5,9 +5,15 @@ FROM "${DOCKER_HUB_PROXY}ubuntu:24.04" as composer-build
     ENV COMPOSER_ALLOW_SUPERUSER 1
     ENV COMPOSER_IPRESOLVE 4
 
-    RUN apt-get update; apt-get install -y --no-install-recommends \
-        ca-certificates \
-        curl \
+    # RUN apt-get update; apt-get install -y --no-install-recommends \
+    #     ca-certificates \
+    #     curl
+    # 
+    # RUN curl -vvv --trace-config ssl,tcp https://dotnet.microsoft.com/
+    # RUN curl -vvv --trace-config ssl,tcp https://api.github.com/repos/Bacon/BaconQrCode# /zipball/8674e51bb65af933a5ffaf1c308a660387c35c22
+
+    RUN apt-get install -y --no-install-recommends \
+        ca-certificates \ 
         php8.3 \
         php8.3-apcu \
         php8.3-curl \
@@ -17,10 +23,6 @@ FROM "${DOCKER_HUB_PROXY}ubuntu:24.04" as composer-build
         unzip
 
     WORKDIR /tmp
-
-    # RUN curl -vvv --trace-config ssl,tcp https://api.github.com/
-    # RUN curl -vvv --trace-config ssl,tcp https://dotnet.microsoft.com/
-    RUN curl -vvv --trace-config ssl,tcp https://api.github.com/repos/Bacon/BaconQrCode/zipball/8674e51bb65af933a5ffaf1c308a660387c35c22
 
     # run a simple test trying to reproduce (unsuccessfully) the issue triggered below
     COPY files/test.php /tmp/test.php
